@@ -1,0 +1,15 @@
+# Arquivos de credenciais e chaves de acesso
+*.pem
+*.key
+id_rsa
+.env
+
+# Pastas de dependências (não precisam ir para o Git)
+node_modules/
+__pycache__/
+venv/
+
+# Arquivos de log do servidor
+*.log
+
+
