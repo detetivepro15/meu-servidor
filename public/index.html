@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel - Eterno World</title>
+    <style>
+        body { font-family: sans-serif; background-color: #1a1a1a; color: #fff; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: #2d2d2d; padding: 20px; border-radius: 8px; }
+        h1 { color: #8a2be2; text-align: center; border-bottom: 2px solid #8a2be2; padding-bottom: 10px; }
+        .card { background: #3d3d3d; padding: 15px; margin-top: 15px; border-left: 5px solid #8a2be2; border-radius: 4px; }
+        #loading { text-align: center; color: #aaa; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Painel do Sistema: Eterno-World</h1>
+        <div id="loading">Conectando ao servidor...</div>
+        <div id="projects"></div>
+    </div>
+
+    <script>
+        fetch('/api/projects')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('loading').style.display = 'none';
+                const container = document.getElementById('projects');
+                if(data.length === 0) {
+                    container.innerHTML = '<p>Nenhum projeto encontrado.</p>';
+                    return;
+                }
+                container.innerHTML = '';
+                data.forEach(p => {
+                    container.innerHTML += `
+                        <div class="card">
+                            <h3>${p.name}</h3>
+                            <p>Status: ${p.platform || 'Ativo'}</p>
+                        </div>
+                    `;
+                });
+            })
+            .catch(e => {
+                document.getElementById('loading').innerHTML = 'Erro ao conectar com a API.';
+            });
+    </script>
+</body>
+</html>
