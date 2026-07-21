@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Configuração para desativar a cache no navegador e garantir atualização instantânea
+// Desativa a memória cache para que a nova versão do HTML seja carregada instantaneamente
 app.use(express.static(path.join(__dirname, 'public'), {
     etag: false,
     maxAge: 0,
@@ -15,16 +15,11 @@ app.use(express.static(path.join(__dirname, 'public'), {
     }
 }));
 
-const projetos = [
-    { id: 1, name: 'Projeto Eterno-World', platform: 'Ativo - Web' },
-    { id: 2, name: 'Mapeamento de Mídia', platform: 'Em Desenvolvimento' },
-    { id: 3, name: 'Sistema de Automação', platform: 'Concluído' }
-];
-
-app.get('/api/projects', (req, res) => {
-    res.json(projetos);
+// Rota padrão para entregar o Projeto Lumen
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {
-    console.log(`Servidor ativo na porta ${PORT}`);
+    console.log(`Servidor rodando na porta ${PORT}`);
 });
