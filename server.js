@@ -1,21 +1,26 @@
 const express = require('express');
 const path = require('path');
-const app = express();
 
-// Lê a porta da nuvem (Render) ou usa a 3000 no computador/celular
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Servir os arquivos estáticos da pasta public
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
 
-// Dados de exemplo dos projetos
+// Configuração para desativar a cache no navegador e garantir atualização instantânea
+app.use(express.static(path.join(__dirname, 'public'), {
+    etag: false,
+    maxAge: 0,
+    setHeaders: (res) => {
+        res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+    }
+}));
+
 const projetos = [
     { id: 1, name: 'Projeto Eterno-World', platform: 'Ativo - Web' },
     { id: 2, name: 'Mapeamento de Mídia', platform: 'Em Desenvolvimento' },
     { id: 3, name: 'Sistema de Automação', platform: 'Concluído' }
 ];
 
-// Rota da API
 app.get('/api/projects', (req, res) => {
     res.json(projetos);
 });
