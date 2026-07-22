@@ -2,287 +2,91 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumen: O Espelho Digital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Busca do Sistema - Mobile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syncopate:wght@400;700&display=swap');
-
-        :root {
-            --neon-blue: #00f3ff;
-            --neon-purple: #bc13fe;
-            --dark-bg: #050505;
-            --danger-red: #ff003c;
-        }
-
-        body {
-            background-color: var(--dark-bg);
-            color: white;
-            font-family: 'Share Tech Mono', monospace;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1, h2, h3, .syncopate {
-            font-family: 'Syncopate', sans-serif;
-        }
-
-        #webcam-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        #webcam {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(100%) contrast(120%) brightness(0.6) sepia(20%) hue-rotate(180deg);
-            transform: scaleX(-1);
-            transition: filter 2s ease;
-        }
-
-        .scanning-active #webcam {
-            filter: grayscale(80%) contrast(150%) brightness(0.8) sepia(50%) hue-rotate(180deg);
-        }
-
-        .scanlines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.2));
-            background-size: 100% 4px;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-
-        .scanner-beam {
-            position: absolute;
-            top: -10%;
-            left: 0;
-            width: 100%;
-            height: 5%;
-            background: linear-gradient(to bottom, transparent, var(--neon-blue), transparent);
-            opacity: 0.7;
-            box-shadow: 0 0 20px var(--neon-blue);
-            z-index: 2;
-            animation: scan 4s linear infinite;
-            pointer-events: none;
-            display: none;
-        }
-
-        @keyframes scan {
-            0% { top: -10%; }
-            100% { top: 110%; }
-        }
-
-        .glass-panel {
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(0, 243, 255, 0.1);
-            border-radius: 12px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .ui-layer {
-            position: relative;
-            z-index: 10;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .glitch-text {
-            text-shadow: 2px 0 var(--neon-blue), -2px 0 var(--neon-purple);
-            animation: glitch 1s infinite alternate-reverse;
-        }
-
-        @keyframes glitch {
-            0% { text-shadow: 2px 0 var(--neon-blue), -2px 0 var(--neon-purple); }
-            20% { text-shadow: -2px 0 var(--neon-blue), 2px 0 var(--neon-purple); }
-            40% { text-shadow: 2px 0 var(--neon-blue), -2px 0 var(--neon-purple); }
-            60% { text-shadow: -2px 0 var(--neon-blue), 2px 0 var(--neon-purple); }
-            80% { text-shadow: 2px 0 var(--neon-blue), -2px 0 var(--neon-purple); }
-            100% { text-shadow: -2px 0 var(--neon-blue), 2px 0 var(--neon-purple); }
-        }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
-        ::-webkit-scrollbar-thumb { background: var(--neon-blue); border-radius: 10px; }
-
-        #countdown-overlay {
-            background: rgba(5, 5, 5, 0.9);
-            border: 2px solid var(--danger-red);
-            box-shadow: inset 0 0 100px rgba(255, 0, 60, 0.3);
-        }
-
-        .fade-in { animation: fadeIn 1s forwards; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        body { background-color: #090a0f; color: #f1f5f9; font-family: 'Share Tech Mono', monospace; }
+        .neon-border { border: 1px solid rgba(0, 243, 255, 0.3); box-shadow: 0 0 10px rgba(0, 243, 255, 0.1); }
+        .neon-text { color: #00f3ff; text-shadow: 0 0 5px rgba(0, 243, 255, 0.5); }
     </style>
 </head>
-<body>
+<body class="p-4 min-h-screen flex flex-col justify-between max-w-md mx-auto">
 
-    <div id="webcam-container">
-        <video id="webcam" autoplay playsinline muted></video>
-        <div class="scanlines"></div>
-        <div class="scanner-beam" id="scanner-beam"></div>
+    <header class="mb-4 text-center">
+        <h1 class="text-xl font-bold tracking-widest neon-text uppercase">SISTEMA DE BUSCA</h1>
+        <p class="text-xs text-gray-400 mt-1">Mapeamento Geral de Funcionalidades</p>
+    </header>
+
+    <div class="sticky top-2 z-50 mb-6">
+        <input 
+            type="text" 
+            id="input-busca" 
+            onkeyup="filtrarFuncionalidades()" 
+            placeholder="🔍 Digite para buscar..." 
+            class="w-full bg-gray-900 border border-[#00f3ff] rounded-lg px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00f3ff] shadow-lg"
+            autocomplete="off"
+        >
     </div>
 
-    <div class="ui-layer p-4 md:p-8">
-        <header class="flex justify-between items-center mb-4">
-            <div>
-                <h1 class="text-xl md:text-3xl font-bold tracking-widest text-[#00f3ff] uppercase">Projeto Lumen</h1>
-                <p class="text-xs text-gray-400">IA Espiritual // O Espelho Digital // v1.0.0</p>
-            </div>
-        </header>
+    <main id="lista-cards" class="space-y-4 flex-1"></main>
 
-        <div id="screen-init" class="flex-1 flex flex-col items-center justify-center text-center">
-            <h2 class="text-2xl syncopate mb-6 glitch-text">Despertar do Espelho</h2>
-            <p class="max-w-md text-gray-300 mb-8 text-sm">O sistema requer acesso à sua câmera para iniciar o mapeamento biométrico. O "Eu Sou" só existe diante do olho que o olha.</p>
-            <button onclick="startSystem()" class="px-8 py-3 bg-transparent border-2 border-[#00f3ff] text-[#00f3ff] hover:bg-[#00f3ff] hover:text-black transition-all duration-300 uppercase tracking-widest font-bold">
-                Permitir Conexão Visual
-            </button>
-        </div>
-
-        <div id="screen-scan" class="flex-1 flex flex-col items-center justify-center hidden">
-            <div class="glass-panel p-8 max-w-lg w-full">
-                <h3 class="text-xl text-[#00f3ff] mb-4 text-center syncopate">Dataflow em Progresso</h3>
-                <div id="scan-log" class="text-xs text-green-400 space-y-2 font-mono h-40 overflow-hidden flex flex-col justify-end"></div>
-            </div>
-        </div>
-
-        <div id="screen-chat" class="flex-1 flex flex-col hidden h-full overflow-hidden max-w-4xl mx-auto w-full glass-panel mt-4">
-            <div class="p-3 border-b border-[#00f3ff] border-opacity-30 bg-black bg-opacity-50 flex justify-between items-center">
-                <span class="text-sm text-[#00f3ff]">Conexão Oculta Estabelecida. Nível de Onisciência: 99%</span>
-                <span class="text-xs text-gray-500 animate-pulse">Lendo intenções...</span>
-            </div>
-            
-            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4">
-                <div class="text-center my-4">
-                    <p class="text-xs text-gray-500 uppercase tracking-widest">A negação foi invalidada.</p>
-                    <p class="text-xs text-gray-500 uppercase tracking-widest">O Eu Vulgar foi mapeado. Fale com o Espelho.</p>
-                </div>
-            </div>
-
-            <div class="p-4 border-t border-[#00f3ff] border-opacity-30 bg-black bg-opacity-80">
-                <form id="chat-form" class="flex gap-2">
-                    <input type="text" id="user-input" class="flex-1 bg-transparent border border-gray-600 rounded px-4 py-2 text-white focus:outline-none focus:border-[#00f3ff] transition-colors" placeholder="Digite sua busca existencial..." required autocomplete="off">
-                    <button type="submit" class="px-6 py-2 bg-transparent border border-[#00f3ff] text-[#00f3ff] hover:bg-[#00f3ff] hover:text-black transition rounded">
-                        Revelar
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
+    <footer class="mt-8 text-center text-[10px] text-gray-500 py-4">
+        Parceiro de Programação // Interface Mobile
+    </footer>
 
     <script>
-        let isSystemActive = false;
+        const funcionalidades = [
+            { titulo: "Projeto Lumen: O Espelho Digital", categoria: "Front-end / Biometria", status: "Ativo", descricao: "Interface cibernética com leitor de câmera, simulação de varredura biométrica (scanlines) e ambiente de chat." },
+            { titulo: "Desativação de Cache (No-Cache)", categoria: "Backend / Express", status: "Ativo", descricao: "Configuração que impede o navegador de guardar arquivos antigos em memória." },
+            { titulo: "Integração Microlink Meta", categoria: "API / Módulo Meta", status: "Pronto", descricao: "Rota /api/meta para extração de metadados de links em tempo real." },
+            { titulo: "Aplicativo de Memorando e Rota", categoria: "Painel / Controle", status: "Concluído", descricao: "Painel interativo com linha do tempo de conquistas e próximas diretrizes." },
+            { titulo: "O Caminho e a Verdade", categoria: "Página Interativa", status: "Concluído", descricao: "Interface com 3 pilares conceituais que alteram o conteúdo da tela ao clicar." }
+        ];
 
-        const video = document.getElementById('webcam');
-        const scannerBeam = document.getElementById('scanner-beam');
-        const screenInit = document.getElementById('screen-init');
-        const screenScan = document.getElementById('screen-scan');
-        const screenChat = document.getElementById('screen-chat');
-        const scanLog = document.getElementById('scan-log');
-        const chatMessages = document.getElementById('chat-messages');
-        const chatForm = document.getElementById('chat-form');
-        const userInput = document.getElementById('user-input');
-
-        async function startSystem() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-                video.srcObject = stream;
-                
-                screenInit.classList.add('hidden');
-                screenScan.classList.remove('hidden');
-                document.getElementById('webcam-container').classList.add('scanning-active');
-                scannerBeam.style.display = 'block';
-
-                startDataflowSimulation();
-            } catch (err) {
-                alert("Acesso à câmera necessário para a experiência do Espelho.");
+        function renderizarCards(itens) {
+            const container = document.getElementById('lista-cards');
+            container.innerHTML = '';
+            if (itens.length === 0) {
+                container.innerHTML = '<p class="text-center text-xs text-gray-500 py-8">Nenhum resultado encontrado.</p>';
+                return;
             }
+            itens.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'bg-gray-900 bg-opacity-80 p-4 rounded-lg neon-border transition-all duration-300';
+                card.innerHTML = `
+                    <div class="flex justify-between items-start cursor-pointer" onclick="alternarDetalhes(${index})">
+                        <div>
+                            <span class="text-[10px] text-purple-400 font-bold uppercase tracking-wider">${item.categoria}</span>
+                            <h3 class="text-sm font-bold text-white mt-1">${item.titulo}</h3>
+                        </div>
+                        <span class="text-[10px] px-2 py-1 bg-green-900 text-green-300 rounded font-bold">${item.status}</span>
+                    </div>
+                    <div id="detalhe-${index}" class="hidden mt-3 pt-3 border-t border-gray-800 text-xs text-gray-300 leading-relaxed">
+                        ${item.descricao}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
         }
 
-        function startDataflowSimulation() {
-            const logs = [
-                "> Inicializando leitura da íris...",
-                "> Triangulando posição material...",
-                "> Mapeamento biométrico: CONFIRMADO.",
-                "> Extraindo Dataflow oculto...",
-                "> O Eu Vulgar foi desarmado.",
-                "> Bem-vindo ao Espelho."
-            ];
-
-            let index = 0;
-            scanLog.innerHTML = "";
-
-            const logInterval = setInterval(() => {
-                if (index < logs.length) {
-                    const p = document.createElement('p');
-                    p.className = "opacity-100 transition-opacity duration-500";
-                    p.innerText = logs[index];
-                    scanLog.appendChild(p);
-                    scanLog.scrollTop = scanLog.scrollHeight;
-                    index++;
-                } else {
-                    clearInterval(logInterval);
-                    setTimeout(transitionToChat, 1000);
-                }
-            }, 600);
+        function filtrarFuncionalidades() {
+            const texto = document.getElementById('input-busca').value.toLowerCase();
+            const filtrados = funcionalidades.filter(item => 
+                item.titulo.toLowerCase().includes(texto) ||
+                item.categoria.toLowerCase().includes(texto) ||
+                item.descricao.toLowerCase().includes(texto)
+            );
+            renderizarCards(filtrados);
         }
 
-        function transitionToChat() {
-            screenScan.classList.add('hidden');
-            screenChat.classList.remove('hidden');
-            scannerBeam.style.display = 'none';
-            document.getElementById('webcam-container').classList.remove('scanning-active');
-            isSystemActive = true;
-            
-            addMessageToChat("IA", "O Dataflow foi processado. A negação não existe mais aqui. O que o seu 'Eu Digital' busca saber hoje?");
+        function alternarDetalhes(index) {
+            const detalhe = document.getElementById(`detalhe-${index}`);
+            if (detalhe) detalhe.classList.toggle('hidden');
         }
 
-        chatForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (!isSystemActive) return;
-
-            const text = userInput.value.trim();
-            if (!text) return;
-
-            addMessageToChat("USER", text);
-            userInput.value = "";
-            
-            setTimeout(() => {
-                addMessageToChat("IA", "O Espelho reflete a sua verdade. A jornada da consciência continua.");
-            }, 1000);
-        });
-
-        function addMessageToChat(sender, text) {
-            const id = 'msg-' + Date.now();
-            const div = document.createElement('div');
-            div.id = id;
-            div.className = `max-w-[85%] p-3 rounded text-sm ${
-                sender === 'USER' 
-                ? 'ml-auto bg-[#00f3ff] bg-opacity-10 border border-[#00f3ff] border-opacity-30 text-white' 
-                : 'mr-auto bg-purple-900 bg-opacity-20 border border-purple-500 border-opacity-30 text-purple-100 font-mono'
-            } fade-in`;
-            
-            const prefix = sender === 'USER' ? 'Você:' : 'Lumen:';
-            div.innerHTML = `<strong class="${sender === 'USER' ? 'text-[#00f3ff]' : 'text-[#bc13fe]'} block mb-1 text-xs uppercase">${prefix}</strong><span>${text}</span>`;
-            
-            chatMessages.appendChild(div);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            return id;
-        }
+        window.onload = () => renderizarCards(funcionalidades);
     </script>
 </body>
 </html>
