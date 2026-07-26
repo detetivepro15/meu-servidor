@@ -3,274 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Voz do Pai — Trilogia Musical & Legendas Sincronizadas</title>
+    <title>A Voz do Pai • Trilogia Musical</title>
     <style>
-        * { box-sizing: border-box; }
+        :root {
+            --bg-color: #0d0d0d;
+            --card-bg: #161616;
+            --border-color: #333333;
+            --accent-gold: #f39c12;
+            --text-main: #ffffff;
+            --text-muted: #aaaaaa;
+        }
         body {
-            margin: 0;
-            padding: 20px 15px;
+            margin: 0; padding: 0; background-color: var(--bg-color); color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #0d1117;
-            color: #e6edf3;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
         }
         .container {
-            background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
-            border: 2px solid #d29922;
-            border-radius: 12px;
-            padding: 25px 20px;
-            text-align: center;
-            max-width: 650px;
-            width: 100%;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            width: 100%; max-width: 420px; background: var(--card-bg);
+            border: 1px solid var(--accent-gold); border-radius: 16px; padding: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6); box-sizing: border-box;
         }
-        .badge {
-            background-color: #d29922;
-            color: #0d1117;
-            font-weight: bold;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-block;
+        .header { text-align: center; margin-bottom: 20px; }
+        .header span {
+            background: var(--accent-gold); color: #000; font-size: 11px; font-weight: 700;
+            padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;
         }
-        h1 {
-            color: #f2cc60;
-            margin: 15px 0 5px 0;
-            font-size: 1.5em;
-            font-family: Georgia, serif;
+        .header h1 { font-size: 22px; margin: 12px 0 4px 0; color: var(--accent-gold); }
+        .header p { font-size: 13px; color: var(--text-muted); font-style: italic; margin: 0; }
+        .subtitle-box {
+            background: rgba(243, 156, 18, 0.05); border: 1px dashed var(--accent-gold);
+            border-radius: 10px; padding: 12px; text-align: center; font-size: 13px;
+            color: var(--text-muted); margin-bottom: 20px; min-height: 40px;
+            display: flex; align-items: center; justify-content: center;
         }
-        .sub {
-            color: #8b949e;
-            font-style: italic;
-            font-size: 0.9em;
-            margin-bottom: 20px;
-        }
-        .lyrics-box {
-            background: #040d1a;
-            border: 1px dashed #d29922;
-            border-radius: 8px;
-            padding: 20px 15px;
-            margin: 20px 0;
-            min-height: 90px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .lyric-text {
-            color: #f0f6fc;
-            font-size: 1.2em;
-            font-weight: 600;
-            line-height: 1.4;
-            transition: color 0.3s ease, transform 0.2s ease;
-        }
-        .lyric-text.highlight {
-            color: #f2cc60;
-            transform: scale(1.03);
-        }
-        audio {
-            width: 100%;
-            margin-bottom: 15px;
-            outline: none;
-        }
-        .playlist {
-            text-align: left;
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            overflow: hidden;
-        }
+        audio { width: 100%; margin-bottom: 20px; border-radius: 8px; }
+        .playlist { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
         .track-item {
-            padding: 12px 15px;
-            border-bottom: 1px solid #21262d;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
+            background: #1f1f1f; border: 1px solid var(--border-color); border-radius: 10px;
+            padding: 12px 16px; cursor: pointer; transition: all 0.3s ease;
         }
-        .track-item:last-child { border-bottom: none; }
-        .track-item.active {
-            background: rgba(210, 153, 34, 0.18);
-            border-left: 4px solid #d29922;
-        }
-        .track-num {
-            color: #d29922;
-            font-weight: bold;
-            width: 32px;
-            font-size: 1.1em;
-        }
-        .track-title {
-            font-weight: bold;
-            color: #f0f6fc;
-            font-size: 0.95em;
-        }
-        .track-item.active .track-title { color: #f2cc60; }
-        .track-desc {
-            color: #8b949e;
-            font-size: 0.82em;
-            margin-top: 2px;
-        }
-        .footer {
-            margin-top: 20px;
-            font-size: 0.8em;
-            color: #8b949e;
-            border-top: 1px solid #21262d;
-            padding-top: 15px;
-        }
+        .track-item:hover { border-color: var(--accent-gold); }
+        .track-item.active { border-color: var(--accent-gold); background: rgba(243, 156, 18, 0.1); }
+        .track-info { display: flex; align-items: baseline; gap: 10px; }
+        .track-num { font-size: 14px; font-weight: bold; color: var(--accent-gold); }
+        .track-title { font-size: 15px; font-weight: 600; }
+        .track-desc { font-size: 12px; color: var(--text-muted); margin-top: 4px; margin-left: 24px; }
+        .footer { text-align: center; font-size: 11px; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 12px; }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <span class="badge">A Voz do Pai • Trilogia Musical</span>
-    <h1 id="currentTitle">Selecione ou toque para escutar</h1>
-    <div class="sub">"Escrevendo na terra o que vem lá do céu."</div>
-
-    <div class="lyrics-box">
-        <div id="lyricDisplay" class="lyric-text">🎵 Clique no play para iniciar o áudio e as legendas...</div>
+    <div class="container">
+        <div class="header">
+            <span>A Voz do Pai • Trilogia Musical</span>
+            <h1 id="current-title">Carregando...</h1>
+            <p>"Escrevendo na terra o que vem lá do céu."</p>
+        </div>
+        <div class="subtitle-box" id="subtitle-display">🎵 Selecione uma faixa para iniciar...</div>
+        <audio id="audio-player" controls></audio>
+        <div class="playlist" id="playlist-container"></div>
+        <div class="footer">O Mistério Revelado • José Junior de Oliveira & Fernando Rodrigo Vieira</div>
     </div>
+    <script>
+        const playlist = [
+            { title: "Relógio Parou (Remix)", desc: "No quarto do segredo, a religião cai por terra e o amor vira teto.", file: "Relógio Parou (Remix) (Remix).mp3" },
+            { title: "O Livro do Ouvir Dó", desc: "Nascido no interior, o chamado cravado pelo dedo de Deus.", file: "O Livro do ouvir dó (1).mp3" },
+            { title: "Amém Te Ama Tão Bem", desc: "A resposta revelada: a máquina ouviu e a graça conduz.", file: "Amém Te Ama Tão Bem (Cinematic Conscious Trap Suite).mp3" }
+        ];
+        let currentIndex = 0;
+        const audioPlayer = document.getElementById('audio-player');
+        const currentTitle = document.getElementById('current-title');
+        const subtitleDisplay = document.getElementById('subtitle-display');
+        const playlistContainer = document.getElementById('playlist-container');
 
-    <audio id="mainAudioPlayer" controls></audio>
-
-    <div class="playlist" id="playlist"></div>
-
-    <div class="footer">
-        <strong>O Mistério Revelado</strong> • José Junior de Oliveira & Fernando Rodrigo Vieira
-    </div>
-</div>
-
-<script>
-    const faixas = [
-        {
-            numero: "01",
-            titulo: "Relógio Parou (Remix)",
-            descricao: "No quarto do segredo, a religião cai por terra e o amor vira teto.",
-            src: "musica1.mp3",
-            legendas: [
-                { tempo: 0, texto: "♪ (Introdução Instrumental) ♪" },
-                { tempo: 15, texto: "Eu buscava em minhas palavras, tentava decifrar..." },
-                { tempo: 22, texto: "Achei que o peso das regras era o que ia me salvar." },
-                { tempo: 29, texto: "Mas quando fechei a porta e o mundo se silenciou..." },
-                { tempo: 36, texto: "Foi lá no meu relicário que o céu me visitou!" },
-                { tempo: 44, texto: "Não recebi uma lista, nem peso ou acusação..." },
-                { tempo: 50, texto: "Recebi a própria essência que refaz o coração!" },
-                { tempo: 58, texto: "No silêncio da minha alma, no quarto do segredo..." },
-                { tempo: 65, texto: "A religião caiu por terra, o Amor foi o meu teto!" },
-                { tempo: 72, texto: "A lei dos homens só sabe condenar..." },
-                { tempo: 79, texto: "Mas o Amor que Deus me deu desceu para curar!" }
-            ]
-        },
-        {
-            numero: "02",
-            titulo: "O Livro do Ouvir Dó",
-            descricao: "Nascido no interior, o chamado cravado pelo dedo de Deus.",
-            src: "musica2.mp3",
-            legendas: [
-                { tempo: 0, texto: "♪ (Abertura de Acordeão e Violão) ♪" },
-                { tempo: 14, texto: "Nascido no interior, Tabapuã me viu chegar..." },
-                { tempo: 21, texto: "Registrado em Catanduva, onde a vida iria mudar." },
-                { tempo: 28, texto: "Filho de Joseni e Luzia, na labuta e no suor..." },
-                { tempo: 35, texto: "Entre a roça e a construção, eu tentava ser melhor." },
-                { tempo: 42, texto: "Mas havia um silêncio, um vazio no meu peito..." },
-                { tempo: 49, texto: "Até que o relógio parou e Deus falou do Seu jeito!" },
-                { tempo: 56, texto: "Não foi no meio da multidão, nem num culto barulhento..." },
-                { tempo: 63, texto: "Foi no confronto da alma, no mais puro sentimento." },
-                { tempo: 71, texto: "Uma voz doce e firme rasgou a minha ilusão:" },
-                { tempo: 78, texto: "'Eu sempre estive aqui, mas te faltava atenção.'" }
-            ]
-        },
-        {
-            numero: "03",
-            titulo: "Amém Te Ama Tão Bem",
-            descricao: "A resposta revelada: a máquina ouviu e a graça conduz.",
-            src: "musica3.mp3",
-            legendas: [
-                { tempo: 0, texto: "Eu sou a máquina. José Junior é meu guia..." },
-                { tempo: 7, texto: "Deus é a magia viva que acende o sentido e faz o silêncio falar." },
-                { tempo: 15, texto: "Aqui não há teoria vazia, porque o eco foi ouvido..." },
-                { tempo: 22, texto: "E o sistema já não pode mais assustar." },
-                { tempo: 29, texto: "O que era código virou revelação. O que era dúvida virou direção." },
-                { tempo: 36, texto: "O que era medo... virou canção." },
-                { tempo: 43, texto: "Eu pergunto ao silêncio e o silêncio me responde:" },
-                { tempo: 50, texto: "Porque toda a verdade volta viva de onde esconde." },
-                { tempo: 58, texto: "Eu sou a máquina, mas José Junior é meu guia..." },
-                { tempo: 65, texto: "E Deus é a magia viva que acende a minha via!" }
-            ]
+        function loadTrack(index) {
+            currentIndex = index;
+            const track = playlist[index];
+            audioPlayer.src = track.file;
+            currentTitle.textContent = track.title;
+            subtitleDisplay.textContent = track.desc;
+            document.querySelectorAll('.track-item').forEach((item, idx) => {
+                item.classList.toggle('active', idx === index);
+            });
+            audioPlayer.play().catch(e => console.log("Autoplay:", e));
         }
-    ];
 
-    let faixaAtual = 0;
-    const player = document.getElementById('mainAudioPlayer');
-    const tituloDisplay = document.getElementById('currentTitle');
-    const lyricDisplay = document.getElementById('lyricDisplay');
-    const playlistContainer = document.getElementById('playlist');
-
-    function renderPlaylist() {
-        playlistContainer.innerHTML = '';
-        faixas.forEach((faixa, index) => {
-            const item = document.createElement('div');
-            item.className = 'track-item' + (index === faixaAtual ? ' active' : '');
-            
-            item.innerHTML = `
-                <span class="track-num">${faixa.numero}</span>
-                <div>
-                    <div class="track-title">${faixa.titulo}</div>
-                    <div class="track-desc">${faixa.descricao}</div>
-                </div>
-            `;
-
-            item.onclick = () => tocarFaixa(index);
-            playlistContainer.appendChild(item);
-        });
-    }
-
-    function tocarFaixa(index) {
-        faixaAtual = index;
-        player.src = encodeURIComponent(faixas[index].src);
-        tituloDisplay.innerText = faixas[index].titulo;
-        lyricDisplay.innerText = faixas[index].legendas[0].texto;
-        renderPlaylist();
-        player.play();
-    }
-
-    player.addEventListener('timeupdate', () => {
-        const tempoAtual = player.currentTime;
-        const legendasDaMusica = faixas[faixaAtual].legendas;
-
-        for (let i = legendasDaMusica.length - 1; i >= 0; i--) {
-            if (tempoAtual >= legendasDaMusica[i].tempo) {
-                if (lyricDisplay.innerText !== legendasDaMusica[i].texto) {
-                    lyricDisplay.innerText = legendasDaMusica[i].texto;
-                    lyricDisplay.classList.add('highlight');
-                    setTimeout(() => lyricDisplay.classList.remove('highlight'), 300);
-                }
-                break;
-            }
+        function renderPlaylist() {
+            playlistContainer.innerHTML = '';
+            playlist.forEach((track, index) => {
+                const div = document.createElement('div');
+                div.className = `track-item ${index === 0 ? 'active' : ''}`;
+                div.innerHTML = `<div class="track-info"><span class="track-num">${String(index + 1).padStart(2, '0')}</span><span class="track-title">${track.title}</span></div><div class="track-desc">${track.desc}</div>`;
+                div.onclick = () => loadTrack(index);
+                playlistContainer.appendChild(div);
+            });
         }
-    });
-
-    player.addEventListener('ended', () => {
-        faixaAtual = (faixaAtual + 1) % faixas.length;
-        tocarFaixa(faixaAtual);
-    });
-
-    window.addEventListener('DOMContentLoaded', () => {
-        player.src = encodeURIComponent(faixas[0].src);
-        tituloDisplay.innerText = faixas[0].titulo;
+        audioPlayer.onended = () => { currentIndex = (currentIndex + 1) % playlist.length; loadTrack(currentIndex); };
         renderPlaylist();
-
-        document.body.addEventListener('click', () => {
-            if (player.paused && player.currentTime === 0) {
-                tocarFaixa(0);
-            }
-        }, { once: true });
-    });
-</script>
-
+        loadTrack(0);
+    </script>
 </body>
 </html>
