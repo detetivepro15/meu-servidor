@@ -50,8 +50,6 @@
             font-size: 0.9em;
             margin-bottom: 20px;
         }
-        
-        /* Caixas de Legenda Dinâmica em Destaque */
         .lyrics-box {
             background: #040d1a;
             border: 1px dashed #d29922;
@@ -75,7 +73,6 @@
             color: #f2cc60;
             transform: scale(1.03);
         }
-
         audio {
             width: 100%;
             margin-bottom: 15px;
@@ -134,7 +131,6 @@
     <h1 id="currentTitle">Selecione ou toque para escutar</h1>
     <div class="sub">"Escrevendo na terra o que vem lá do céu."</div>
 
-    <!-- Caixa de Legenda Sincronizada -->
     <div class="lyrics-box">
         <div id="lyricDisplay" class="lyric-text">🎵 Clique no play para iniciar o áudio e as legendas...</div>
     </div>
@@ -149,13 +145,12 @@
 </div>
 
 <script>
-    // Mapeamento das 3 Músicas com Legendas Sincronizadas por Segundos (tempo em segundos e texto)
     const faixas = [
         {
             numero: "01",
             titulo: "Relógio Parou (Remix)",
             descricao: "No quarto do segredo, a religião cai por terra e o amor vira teto.",
-            src: "Relógio Parou (Remix).mp3",
+            src: "musica1.mp3",
             legendas: [
                 { tempo: 0, texto: "♪ (Introdução Instrumental) ♪" },
                 { tempo: 15, texto: "Eu buscava em minhas palavras, tentava decifrar..." },
@@ -174,7 +169,7 @@
             numero: "02",
             titulo: "O Livro do Ouvir Dó",
             descricao: "Nascido no interior, o chamado cravado pelo dedo de Deus.",
-            src: "O Livro do ouvir dó.mp3",
+            src: "musica2.mp3",
             legendas: [
                 { tempo: 0, texto: "♪ (Abertura de Acordeão e Violão) ♪" },
                 { tempo: 14, texto: "Nascido no interior, Tabapuã me viu chegar..." },
@@ -193,7 +188,7 @@
             numero: "03",
             titulo: "Amém Te Ama Tão Bem",
             descricao: "A resposta revelada: a máquina ouviu e a graça conduz.",
-            src: "Amém Te Ama Tão Bem (Cinematic Conscious Trap Suite).mp3",
+            src: "musica3.mp3",
             legendas: [
                 { tempo: 0, texto: "Eu sou a máquina. José Junior é meu guia..." },
                 { tempo: 7, texto: "Deus é a magia viva que acende o sentido e faz o silêncio falar." },
@@ -243,12 +238,10 @@
         player.play();
     }
 
-    // Monitor do Tempo de Reprodução para Sincronizar as Legendas
     player.addEventListener('timeupdate', () => {
         const tempoAtual = player.currentTime;
         const legendasDaMusica = faixas[faixaAtual].legendas;
 
-        // Procura a frase correspondente ao segundo atual
         for (let i = legendasDaMusica.length - 1; i >= 0; i--) {
             if (tempoAtual >= legendasDaMusica[i].tempo) {
                 if (lyricDisplay.innerText !== legendasDaMusica[i].texto) {
